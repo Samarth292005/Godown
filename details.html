@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .map {
+            width: 80%;
+            margin: 20px auto;
+            border: 2px solid #ccc;
+        }
+        .product-info {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .product-info img {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+        .product-info h2 {
+            margin: 10px 0;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Details</h1>
+    <img src="map.jpg" alt="PCS Inventory Map" class="map">
+    <div class="product-info">
+        <img id="productImage" src="placeholder.jpg" alt="Product Image">
+        <h2 id="productName">Loading...</h2>
+        <p id="productPrice">Price: Loading...</p>
+    </div>
+    <button class="back-button" onclick="window.location.href='home.html'">Go Back</button>
+
+    <script>
+        // Extract category code from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryCode = urlParams.get('category');
+        
+        // Mock product data
+        const products = {
+            '123': { name: 'Steel Rod', price: '₹500', image: 'steel-rod.jpg' },
+            '456': { name: 'Iron Nail', price: '₹200', image: 'iron-nail.jpg' },
+            '789': { name: 'Copper Wire', price: '₹800', image: 'copper-wire.jpg' }
+        };
+
+        // Display product details
+        const product = products[categoryCode];
+        if (product) {
+            document.getElementById('productImage').src = product.image;
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productPrice').textContent = `Price: ${product.price}`;
+        } else {
+            document.getElementById('productName').textContent = 'Product Not Found';
+            document.getElementById('productPrice').textContent = 'Please check the category code.';
+        }
+    </script>
+</body>
+</html>
