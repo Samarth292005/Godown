@@ -8,104 +8,108 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('background.jpg') no-repeat center center fixed, #333;
-            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: white;
         }
+
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            margin-bottom: 20px;
+        }
+
         .logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 120px;
+            width: 150px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out 1s;
         }
-        .all-items {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #4caf50;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .all-items:hover {
-            background-color: #45a049;
-        }
+
         .search-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             text-align: center;
+            animation: fadeIn 2s ease-in-out 1.5s;
         }
+
         .search-bar {
             padding: 10px;
-            font-size: 16px;
+            font-size: 18px;
             border: none;
             border-radius: 5px;
             width: 300px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
         }
-        .search-bar:hover {
-            border: 2px solid #4caf50;
+
+        .search-bar:focus {
+            border: 2px solid #fff;
+            outline: none;
         }
+
         .search-button {
             padding: 10px 20px;
             font-size: 18px;
             background-color: #4caf50;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            color: white;
+            transition: background-color 0.3s ease;
         }
+
         .search-button:hover {
             background-color: #45a049;
         }
-        #error-message {
-            color: red;
-            margin-top: 10px;
-            display: none;
+
+        .search-button:active {
+            transform: scale(0.98);
         }
-        @media (max-width: 600px) {
-            .all-items {
-                font-size: 14px;
-                padding: 8px 16px;
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            .search-bar {
-                width: 90%;
-            }
-            .search-button {
-                font-size: 16px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
-    <img src="logo.png" alt="PCS Infragold Logo" class="logo" onerror="this.style.display='none'">
-    <button class="all-items" title="View all items" onclick="viewAllItems()">All Items</button>
-    <div class="search-container">
-        <input id="categoryCode" type="text" class="search-bar" placeholder="Enter Category Code">
-        <button class="search-button" onclick="searchProduct()">Search</button>
-        <p id="error-message">Please enter a category code</p>
+    <div>
+        <img src="logo.png" alt="PCS Infragold Logo" class="logo">
+        <h1>Welcome to PCS Infragold</h1>
+        <div class="search-container">
+            <input id="categoryCode" type="text" class="search-bar" placeholder="Enter Category Code">
+            <button class="search-button" onclick="searchProduct()">Search</button>
+        </div>
     </div>
-    <script>
-        function viewAllItems() {
-            window.location.href = 'all-items.html';
-        }
 
+    <script>
         function searchProduct() {
-            const categoryCode = document.getElementById('categoryCode').value.trim();
-            const errorMessage = document.getElementById('error-message');
+            const categoryCode = document.getElementById('categoryCode').value;
             if (categoryCode) {
                 window.location.href = `product-details.html?category=${encodeURIComponent(categoryCode)}`;
             } else {
-                errorMessage.style.display = 'block';
+                alert('Please enter a category code');
             }
         }
     </script>
